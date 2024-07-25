@@ -10,6 +10,6 @@ dependencies:
   - pip=23.2.1
 
   - pip:
-    - selenium==4.22.0
+    - rpaframework==28.6.1
     - robocorp-workitems==1.4.5
-    - robocorp-truststore  # Ajuste a versão conforme necessário
+    - robocorp-truststore

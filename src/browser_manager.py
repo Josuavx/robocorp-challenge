@@ -1,21 +1,14 @@
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-from src.wait_manager import WaitManager
+from RPA.Browser.Selenium import Selenium
 
-class BrowserManager(WaitManager):
-    """BrowserManager class for managing the browser instance."""
-
-    def __init__(self):
-        """Initialize the BrowserManager with a Chrome browser instance."""
-        options = Options()
-        options.add_argument("--start-maximized")
-        driver = webdriver.Chrome(options=options)
-        super().__init__(driver)
+class BrowserManager:
+    def __init__(self) -> None:
+        self.browser = Selenium()
 
     def start(self, url: str) -> None:
-        """Navigate to the specified URL in the browser."""
-        self.driver.get(url)
+        """Open a URL in the browser."""
+        # Configurar o navegador com opções específicas, se necessário
+        self.browser.open_browser(url, browser='chrome')  # Argumento 'headless' não é usado diretamente aqui
 
     def close(self) -> None:
-        """Close the browser and quit the driver."""
-        self.driver.quit()
+        """Close the browser."""
+        self.browser.close_browser()

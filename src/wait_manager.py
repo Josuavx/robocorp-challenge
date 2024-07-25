@@ -1,59 +1,27 @@
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+from RPA.Browser.Selenium import Selenium
 from typing import Tuple
 
 class WaitManager:
-    """A class to manage waiting for elements in Selenium WebDriver."""
+    """A class to manage waiting for elements in RPA Framework."""
 
-    def __init__(self, driver, timeout: int = 10):
-        """Initialize the WaitManager with a driver and timeout.
+    def __init__(self, browser: Selenium, timeout: int = 10) -> None:
+        """Initialize the WaitManager with a browser and timeout.
 
         Args:
-            driver: An instance of Selenium WebDriver.
+            browser: An instance of Selenium browser from RPA Framework.
             timeout: The maximum amount of time (in seconds) to wait for an element.
         """
-        self.driver = driver
+        self.browser = browser
         self.timeout = timeout
 
-    def wait_element(self, by: By, value: str) -> object:
-        """Wait for the presence of an element located by the specified method.
+    def wait_element(self, by: str, value: str) -> None:
+        """Wait for the presence of an element located by the specified method."""
+        self.browser.wait_until_element_is_visible(f"{by}={value}")
 
-        Args:
-            by: The method to locate the element (e.g., By.XPATH).
-            value: The value of the locator.
+    def wait_be_clickable(self, by: str, value: str) -> None:
+        """Wait for an element to be clickable."""
+        self.browser.wait_until_element_is_clickable(f"{by}={value}")
 
-        Returns:
-            The located WebElement.
-        """
-        return WebDriverWait(self.driver, self.timeout).until(
-            EC.presence_of_element_located((by, value))
-        )
-
-    def wait_be_clickable(self, by: By, value: str) -> object:
-        """Wait for an element to be clickable.
-
-        Args:
-            by: The method to locate the element (e.g., By.XPATH).
-            value: The value of the locator.
-
-        Returns:
-            The clickable WebElement.
-        """
-        return WebDriverWait(self.driver, self.timeout).until(
-            EC.element_to_be_clickable((by, value))
-        )
-
-    def wait_for_visibility(self, by: By, value: str) -> object:
-        """Wait for an element to be visible.
-
-        Args:
-            by: The method to locate the element (e.g., By.XPATH).
-            value: The value of the locator.
-
-        Returns:
-            The visible WebElement.
-        """
-        return WebDriverWait(self.driver, self.timeout).until(
-            EC.visibility_of_element_located((by, value))
-        )
+    def wait_for_visibility(self, by: str, value: str) -> None:
+        """Wait for an element to be visible."""
+        self.browser.wait_until_element_is_visible(f"{by}={value}")
