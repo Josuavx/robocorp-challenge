@@ -75,7 +75,7 @@ class Scraper:
             )
                 
                 self.log.info(f'Init {index}')
-                self.browser.wait_until_element_is_visible(title_xpath, timeout=300)
+                self.browser.wait_until_element_is_enabled(title_xpath, timeout=300)
                 title = new.find_element(By.XPATH, title_xpath).get_attribute('textContent')
                 self.log.info('Title ok')
                 self.browser.wait_until_element_is_visible(date_xpath, timeout=300)
