@@ -74,13 +74,13 @@ class Scraper:
                     """
             )
                 
-                self.browser.wait_until_element_is_visible(title_xpath)
+                self.browser.wait_until_element_is_visible(title_xpath, timeout=30)
                 title = new.find_element(By.XPATH, title_xpath).get_attribute('textContent')
-                self.browser.wait_until_element_is_visible(date_xpath)
+                self.browser.wait_until_element_is_visible(date_xpath, timeout=30)
                 date = new.find_element(By.XPATH, date_xpath).get_attribute('textContent')
-                self.browser.wait_until_element_is_visible(description_xpath)
+                self.browser.wait_until_element_is_visible(description_xpath, timeout=30)
                 description = new.find_element(By.XPATH, description_xpath).get_attribute('textContent')
-                self.browser.wait_until_element_is_visible(picture_filename_xpath)
+                self.browser.wait_until_element_is_visible(picture_filename_xpath, timeout=30)
                 picture_filename = new.find_element(By.XPATH, picture_filename_xpath).get_attribute('alt')
                 picture_url = new.find_element(By.XPATH, picture_filename_xpath).get_attribute('src')
 
