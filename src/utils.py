@@ -75,6 +75,6 @@ def clean_results(results: List[Dict[str, str]]) -> List[Dict[str, str]]:
 
 def add_csv_as_output(file_path: str) -> None:
     workitems.outputs.create(
-        payload={"key": "value"},
+        payload={"results": "True"},
         files=[file_path],
     )
