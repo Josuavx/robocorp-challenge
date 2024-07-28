@@ -3,6 +3,7 @@ import os
 import re
 from urllib import request
 from typing import List, Dict
+from robocorp.workitems import Outputs
 
 def sanitize_filename(filename: str) -> str:
     """Sanitize a filename by replacing invalid characters with underscores.
@@ -55,6 +56,8 @@ def save_to_csv(results: List[Dict[str, str]]) -> None:
         writer = csv.DictWriter(file, fieldnames=headers)
         writer.writeheader()
         writer.writerows(results)
+    
+    add_csv_as_output(file_path)
             
 def clean_results(results: List[Dict[str, str]]) -> List[Dict[str, str]]:
     """Remove the 'picture_url' key from each result.
@@ -69,3 +72,7 @@ def clean_results(results: List[Dict[str, str]]) -> List[Dict[str, str]]:
         result.pop('picture_url', None)
 
     return results
+
+def add_csv_as_output(file_path: str) -> None:
+    output = Outputs()
+    output.create(files=[file_path])
