@@ -3,7 +3,7 @@ import os
 import re
 from urllib import request
 from typing import List, Dict
-from robocorp.workitems import Outputs
+from robocorp import workitems
 
 def sanitize_filename(filename: str) -> str:
     """Sanitize a filename by replacing invalid characters with underscores.
@@ -74,5 +74,7 @@ def clean_results(results: List[Dict[str, str]]) -> List[Dict[str, str]]:
     return results
 
 def add_csv_as_output(file_path: str) -> None:
-    output = Outputs()
-    output.create(files=[file_path])
+    workitems.outputs.create(
+        payload={"key": "value"},
+        files=[file_path],
+    )
