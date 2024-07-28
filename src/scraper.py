@@ -1,6 +1,7 @@
 from RPA.Browser.Selenium import Selenium
 from RPA.Browser.Selenium import BrowserManagementKeywords
 from RPA.Browser.Selenium import SeleniumLibrary
+from .wait_manager import WaitManager
 from selenium.webdriver.common.by import By
 import os
 from src.utils import sanitize_filename
@@ -14,6 +15,7 @@ class Scraper:
         self.log = log
         self.results = []
         self.pages = 0
+        self.wait = WaitManager(self.browser, 60)
 
     def search_news(self):
         self.log.info('Searching for news')
@@ -75,7 +77,7 @@ class Scraper:
             )
                 
                 self.log.info(f'Init {index}')
-                self.browser.wait_until_element_is_enabled(title_xpath, timeout=300)
+                self.wait.wait_element(By.XPATH, title_xpath)
                 title = new.find_element(By.XPATH, title_xpath).get_attribute('textContent')
                 self.log.info('Title ok')
                 self.browser.wait_until_element_is_visible(date_xpath, timeout=300)
