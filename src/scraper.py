@@ -36,12 +36,14 @@ class Scraper:
 
         # Select the option from the dropdown
         select_element_xpath = "//select[@class='select-input']"
+        self.browser.wait_until_element_is_visible(select_element_xpath, timeout=60)
         self.browser.select_from_list_by_value(select_element_xpath, option)
 
     def choose_topic(self):
         checkbox_topic_xpath = f'//div[@class="checkbox-input"]/label/span[text()="{self.news_category}"]/../input'
 
         # Click the checkbox to choose the topic
+        self.browser.wait_until_element_is_visible(checkbox_topic_xpath, timeout=60)
         self.browser.wait_and_click_button(checkbox_topic_xpath)
 
     def collect_news(self):
@@ -50,6 +52,7 @@ class Scraper:
         news_list_element_xpath = "//ul[@class='search-results-module-results-menu']"
 
         while True:
+            self.browser.wait_until_element_is_visible(news_list_element_xpath)
             news_list = self.browser.get_webelement(news_list_element_xpath)
             news_elements = news_list.find_elements(By.XPATH, ".//ps-promo[@class='promo promo-position-large promo-medium']/div")
 
@@ -70,10 +73,14 @@ class Scraper:
                     }
                     """
             )
-
+                
+                self.browser.wait_until_element_is_visible(title_xpath)
                 title = new.find_element(By.XPATH, title_xpath).get_attribute('textContent')
+                self.browser.wait_until_element_is_visible(date_xpath)
                 date = new.find_element(By.XPATH, date_xpath).get_attribute('textContent')
+                self.browser.wait_until_element_is_visible(description_xpath)
                 description = new.find_element(By.XPATH, description_xpath).get_attribute('textContent')
+                self.browser.wait_until_element_is_visible(picture_filename_xpath)
                 picture_filename = new.find_element(By.XPATH, picture_filename_xpath).get_attribute('alt')
                 picture_url = new.find_element(By.XPATH, picture_filename_xpath).get_attribute('src')
 
