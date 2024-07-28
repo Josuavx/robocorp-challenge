@@ -7,10 +7,9 @@ class BrowserManager:
 
     def start(self, url: str) -> None:
         """Open a URL in the browser."""
-        chrome_options = Options()
-        chrome_options.add_argument("--start-maximized")
+        self.browser.open_chrome_browser(url)
 
-        self.browser.open_browser(url, browser='chrome', options=chrome_options)
+        # self.browser.open_browser(url, browser='chrome', options=chrome_options)
 
     def close(self) -> None:
         """Close the browser."""
