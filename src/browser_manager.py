@@ -7,7 +7,7 @@ class BrowserManager:
 
     def start(self, url: str) -> None:
         """Open a URL in the browser."""
-        self.browser.open_chrome_browser(url, maximized=True)
+        self.browser.open_chrome_browser(url, maximized=True, headless=False)
         # self.browser.open_browser(url, browser='chrome')
 
     def close(self) -> None:
