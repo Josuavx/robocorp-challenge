@@ -80,13 +80,16 @@ class Scraper:
                 self.wait.wait_element(By.XPATH, title_xpath)
                 title = new.find_element(By.XPATH, title_xpath).get_attribute('textContent')
                 self.log.info('Title ok')
-                self.browser.wait_until_element_is_visible(date_xpath, timeout=300)
+                
+                self.wait.wait_element(By.XPATH, date_xpath)
                 date = new.find_element(By.XPATH, date_xpath).get_attribute('textContent')
                 self.log.info('Date ok')
-                self.browser.wait_until_element_is_visible(description_xpath, timeout=300)
+                
+                self.wait.wait_element(By.XPATH, description_xpath)
                 description = new.find_element(By.XPATH, description_xpath).get_attribute('textContent')
                 self.log.info('Description ok')
-                self.browser.wait_until_element_is_visible(picture_filename_xpath, timeout=300)
+                
+                self.wait.wait_element(By.XPATH, picture_filename_xpath)
                 picture_filename = new.find_element(By.XPATH, picture_filename_xpath).get_attribute('alt')
                 self.log.info('filename ok')
                 picture_url = new.find_element(By.XPATH, picture_filename_xpath).get_attribute('src')
