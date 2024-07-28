@@ -45,9 +45,13 @@ class Scraper:
         checkbox_topic_xpath = f'//div[@class="checkbox-input"]/label/span[text()="{self.news_category}"]/../input'
 
         # Click the checkbox to choose the topic
-        self.browser.wait_until_element_is_visible(checkbox_topic_xpath, timeout=60)
-        self.browser.wait_and_click_button(checkbox_topic_xpath)
-
+        try:
+            self.wait.wait_element(checkbox_topic_xpath)
+            self.scroll_to(checkbox_topic_xpath)
+            self.browser.wait_and_click_button(checkbox_topic_xpath)
+        except:
+            self.log.info('Checkbox topic not found in page.')
+            
     def collect_news(self):
         self.log.info('Collecting news')
 
@@ -64,18 +68,8 @@ class Scraper:
                 description_xpath = ".//div[@class='promo-content']/p[@class='promo-description']"
                 picture_filename_xpath = ".//div[@class='promo-media']/a/picture/img"
 
-                # Scroll to the news element
-                self.browser.execute_javascript(
-                    """
-                    var xpath = "//div[@class='promo-content']/div[@class='promo-title-container']/h3/a";
-                    var result = document.evaluate(xpath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null);
-                    var element = result.singleNodeValue;
-                    if (element) {
-                        element.scrollIntoView(true);
-                    }
-                    """
-            )
-                
+                self.scroll_to(title_xpath)
+                        
                 self.log.info(f'Init {index}')
                 self.wait.wait_element(By.XPATH, title_xpath)
                 title = new.find_element(By.XPATH, title_xpath).get_attribute('textContent')
@@ -168,5 +162,17 @@ class Scraper:
 
         return False
 
+    def scroll_to(self, xpath):
+        # Scroll to the news element
+        self.browser.execute_javascript(
+            f"""
+            var xpath = "{xpath}";
+            var result = document.evaluate(xpath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null);
+            var element = result.singleNodeValue;
+            if (element) {{
+                element.scrollIntoView(true);
+            }}
+            """
+        )
     def get_results(self):
         return self.results
