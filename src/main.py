@@ -84,7 +84,7 @@ def search_and_store() -> None:
         download_images(results)
         
         log.info('Saving results to .csv file.')
-        save_to_csv(results, scraper.get_months)
+        save_to_csv(results, scraper.get_months())
         
     except Exception:
         traceback.print_exc()
