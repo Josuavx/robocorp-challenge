@@ -170,3 +170,6 @@ class Scraper:
 
     def get_results(self):
         return self.results
+
+    def get_months(self):
+        return self.months

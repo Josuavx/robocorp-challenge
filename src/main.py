@@ -1,15 +1,15 @@
-import os
 import json
+import os
 import traceback
 from time import sleep
 
-from robocorp.tasks import task
 from robocorp import workitems
-from RPA.Browser.Selenium import Selenium
-from src.utils import save_to_csv, download_images
+from robocorp.tasks import task
+
 from src.browser_manager import BrowserManager
-from src.scraper import Scraper
 from src.logger import Logger
+from src.scraper import Scraper
+from src.utils import save_to_csv, download_images
 
 
 def handle_item():
@@ -51,7 +51,7 @@ def simulate_handle_item():
 
 @task
 def search_and_store() -> None:
-    """Main task to search news, download images, and save results."""    
+    """Main task to search news, download images, and save results."""
     browser = BrowserManager()  # Initializes the browser manager
     try:
         logger_instance = Logger(__name__)
@@ -84,7 +84,7 @@ def search_and_store() -> None:
         download_images(results)
         
         log.info('Saving results to .csv file.')
-        save_to_csv(results)
+        save_to_csv(results, scraper.get_months)
         
     except Exception:
         traceback.print_exc()
