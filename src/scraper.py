@@ -43,7 +43,7 @@ class Scraper:
         )
 
         try:
-            self.wait.wait_element(checkbox_topic_xpath)
+            self.wait.wait_element(By.XPATH, checkbox_topic_xpath)
             self.scroll_to(checkbox_topic_xpath)
             self.browser.wait_and_click_button(checkbox_topic_xpath)
         except (NoSuchElementException, TimeoutException):
