@@ -1,4 +1,5 @@
 from RPA.Browser.Selenium import Selenium
+from typing import Tuple
 
 class WaitManager:
     """A class to manage waiting for elements in RPA Framework."""
@@ -14,28 +15,13 @@ class WaitManager:
         self.timeout = timeout
 
     def wait_element(self, by: str, value: str) -> None:
-        """Wait for the presence of an element located by the specified method.
-
-        Args:
-            by: The method used to locate the element (e.g., 'xpath', 'id').
-            value: The value of the locator (e.g., XPath expression, element ID).
-        """
+        """Wait for the presence of an element located by the specified method."""
         self.browser.wait_until_element_is_visible(f"{by}={value}")
 
     def wait_be_clickable(self, by: str, value: str) -> None:
-        """Wait for an element to be clickable.
-
-        Args:
-            by: The method used to locate the element (e.g., 'xpath', 'id').
-            value: The value of the locator (e.g., XPath expression, element ID).
-        """
+        """Wait for an element to be clickable."""
         self.browser.wait_until_element_is_clickable(f"{by}={value}")
 
     def wait_for_visibility(self, by: str, value: str) -> None:
-        """Wait for an element to be visible.
-
-        Args:
-            by: The method used to locate the element (e.g., 'xpath', 'id').
-            value: The value of the locator (e.g., XPath expression, element ID).
-        """
+        """Wait for an element to be visible."""
         self.browser.wait_until_element_is_visible(f"{by}={value}")
